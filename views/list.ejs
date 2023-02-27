@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <link rel="stylesheet" href="Css/styles.css" />
+  </head>
+
+  <body>
+    <div class="box" id="heading">
+      <h1><%=listTitle%></h1>
+    </div>
+    <div class="box">
+      <%for(let i=0; i < newItems.length; i++){%>
+      <!-- adding new li from the array-->
+      <div class="item">
+        <input type="checkbox" name="" id="" />
+        <p><%=newItems[i]%></p>
+      </div>
+      <%}%>
+
+      <form action="/" method="post">
+        <input type="text" name="todo" placeholder="New item" />
+        <button class="add" type="submit" name="button" value="<%=value%>">+</button>
+      </form>
+    </div>
+  </body>
+</html>
