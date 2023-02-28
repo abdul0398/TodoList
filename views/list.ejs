@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Document</title>
-    <link rel="stylesheet" href="Css/styles.css" />
-  </head>
+<%- include("header") -%> <!--these are used to get code from different files called Ejs layout-->
 
-  <body>
     <div class="box" id="heading">
       <h1><%=listTitle%></h1>
     </div>
@@ -18,11 +11,10 @@
         <p><%=newItems[i]%></p>
       </div>
       <%}%>
-
       <form action="/" method="post">
         <input type="text" name="todo" placeholder="New item" />
         <button class="add" type="submit" name="button" value="<%=value%>">+</button>
       </form>
     </div>
-  </body>
-</html>
+    <%- include("footer") -%> 
+
