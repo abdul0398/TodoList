@@ -1,39 +1,64 @@
-// templating is that we are just modifiying part of html using template 
-import express from 'express';
-import bodyParser from 'body-parser';
-import * as date from "./date.mjs"; // self made node module for today date  
+// templating is that we are just modifiying part of html using template
+import express from "express";
+import bodyParser from "body-parser";
+import * as date from "./date.mjs"; // self made node module for today date
+import mongoose from "mongoose";
 const app = express();
-app.use(bodyParser.urlencoded({extended:true})); 
-app.use(express.static('public')); // to use static files inside public folder
-app.set('view engine', 'ejs');
-const items = []; // using array as we need to store multiple inputs to show on list.
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public")); // to use static files inside public folder
+app.set("view engine", "ejs");
+mongoose.connect("mongodb://127.0.0.1:27017/todoListDb");
+const notesSchema = new mongoose.Schema({ name: String });
+const Notes = new mongoose.model("Note", notesSchema);
 const work = [];
-app.get('/',(req,res)=>{
-    const currentDay = date.day();
-    res.render('list',{listTitle: currentDay,newItems:items,value:'home'})//
-})
-app.post('/', (req,res)=>{
-    const item = req.body.todo;
-    const regExp = /[a-zA-Z]/g;
-    const dest = req.body.button;// just checking on which page we have pressed the add button
-    if(dest == 'work'){// if addition is on work page then add note to work array and redirect to work page
-        if(regExp.test(item)){
-            work.push(item);
+const listSchema = new mongoose.Schema({ name: String, item:[notesSchema]});
+const listModel = new mongoose.model("list",listSchema);
+app.get("/", (req, res) => {
+  Notes.find() // reading the file in mangoose(use promise)
+    .then((x) => {
+      async function add() {
+        if(x.length == 0){
+            await Notes.insertMany(work).then((msg)=>{//just checking only if we have not feched the data from db then fetch
+                console.log("Sucessfull");
+            }).catch(err=>{
+                console.log(err);
+            })
         }
-        res.redirect('/work');
-    }else{
-        if(regExp.test(item)){
-            items.push(item);
-        }
-        res.redirect('/');
+        const currentDay = date.day();
+        res.render("list", { listTitle: currentDay, newItems: x, value: "home" }); //
+      }
+      add();
+    });
+});
+app.post("/", (req, res) => {
+  const item = req.body.todo;
+  const regExp = /[a-zA-Z]/g;
+  const dest = req.body.button; // just checking on which page we have pressed the add button
+  const work = new Notes({name:item});
+  if (dest == "work") {
+    if (regExp.test(item)) {
     }
-})
-app.get('/work',(req,res)=>{
-    res.render('list',{listTitle: "Work List",newItems:work,value:'work'})//
-})
-app.get('/about',(req,res)=>{
-    res.render('about')//
-})
-app.listen(3000, ()=>{  
-    console.log("Server Started...");
-})
+    res.redirect("/work");
+  } else {
+    if (regExp.test(item)) {
+       work.save();
+    }
+    res.redirect("/");
+  }
+});
+app.post('/delete', (req,res)=>{
+  const id = req.body.delete;
+  Notes.deleteOne({_id:id}).then(data=>{
+    console.log(data);
+  });
+  res.redirect('/');
+});
+app.get("/:customList", (req, res) => {
+  res.render("list", { listTitle: req.params.customList, newItems: work, value: customList}); //
+});
+app.get("/about", (req, res) => {
+  res.render("about"); //
+});
+app.listen(3000, () => {
+  console.log("Server Started...");
+});
