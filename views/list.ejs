@@ -8,15 +8,15 @@
         <!-- adding new li from the array-->
         <form action="/delete" method="post">
           <div class="item">
-            <input type="checkbox" name="delete" id="" value="<%=element._id%>" onChange="this.form.submit()"/>
-            <!--This onchange will submit the deatils of the form-->
-          <p><%=element.name%></p>
+            <input type="checkbox" name="delete" id="" value="<%=element._id%>" onChange="this.form.submit()"/><!--This onchange will submit the deatils of the form-->
+            <p><%=element.name%></p>
+            <input type="hidden" id="custId" name="listTitle" value="<%=listTitle%>">
         </div>
         </form>
       <%})%>
       <form class="item" action="/" method="post">
         <input type="text" name="todo" placeholder="New item" />
-        <button class="add" type="submit" name="button" value="<%=value%>">+</button>
+        <button class="add" type="submit" name="button" value="<%=listTitle%>">+</button>
       </form>
     </div>
     <%- include("footer") -%> 
