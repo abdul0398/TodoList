@@ -7,7 +7,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public")); // to use static files inside public folder
 app.set("view engine", "ejs");
-mongoose.connect("mongodb://127.0.0.1:27017/todoListDb");
+mongoose.connect("mongodb+srv://admin:Neet2019@cluster0.q2xipmr.mongodb.net/todolistDb");
 const noteSchema = {
    name: String
 };

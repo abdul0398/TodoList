@@ -1,10 +1,11 @@
 html {
   background-color: #E4E9FD;
-  background-image: -webkit-linear-gradient(80deg, #A683E3 50%, #E4E9FD 50%);
-  min-height: 1000px;
+  background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
   font-family: 'helvetica neue';
 }
-
+body{
+  height: 100vh;
+}
 h1 {
   color: #fff;
   padding: 10px;
@@ -19,7 +20,7 @@ h1 {
 }
 
 #heading {
-  background-color: #A683E3;
+  background-color: #051937;
   text-align: center;
 }
 
@@ -61,7 +62,7 @@ button{
   width: 50px;
   border-radius: 50%;
   border-color: transparent;
-  background-color: #A683E3;
+  background-color: #A8EB12;
   color: #fff;
   font-size: 30px;
   padding-bottom: 6px;
@@ -96,3 +97,4 @@ footer {
   color: rgba(0, 0, 0, 0.5);
   text-align: center;
 }
+
