@@ -20,4 +20,7 @@ ToDo List in Node.js, Express and mongoDB database.
 - Create a new Directory locally 
 - Then fork the repo into that directory
 - run `npm init` to create node_module folder
-- install the dependencies : {body-parser, ejs, express, lodash, mongoose, nodemon};
+- install the dependencies : `body-parser`, `ejs`, `express`, `lodash`, `mongoose`, `nodemon`
+## screenshot
+<img src="/Screenshots/1.jpg" height="200em" /> <img src="/Screenshots/1.jpg" height="200em" />
+
